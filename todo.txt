@@ -1,1 +1,9 @@
+- Create Item Modifier
+-- Create a reference table of item ids to item names
+-- Scrap creation logic, needs scrap value, item id and item position
+-- List window showing all items and their scrap value, position should not be alterable
+
+- Seed Generator
+-- Simple window with moon and seed 
+
 
