@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 
 namespace LethalCompanySaveModifier
 {
@@ -70,7 +66,6 @@ namespace LethalCompanySaveModifier
 
         }
     
-
         private byte[] Encrypt(string password, string data)
         {
             using(Aes aesAlg = Aes.Create())
@@ -106,5 +101,45 @@ namespace LethalCompanySaveModifier
                 }
             }
         }
+
+        private void Modify()
+        {
+            var jsonData = File.ReadAllText(OutputFile);
+            if (!(jsonData == null))
+            {
+
+
+                dynamic jsonObject = JsonConvert.DeserializeObject(jsonData);
+                if (!(jsonObject == null))
+                {
+                    foreach (var property in jsonObject)
+                    {
+                        if (property.Value.__type != null)
+                        {
+                            string type = property.Value.__type.ToString();
+                            switch (type)
+                            {
+                                case "System.Int32[],mscorlib":
+                                    break;
+
+                                case "UnityEngine.Vector3[],UnityEngine.CoreModule":
+                                    break;
+
+                                case "int":
+                                    break;
+
+                                case "bool":
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+
+                string modifiedJsonData = JsonConvert.SerializeObject(jsonObject, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(OutputFile, modifiedJsonData);
+            }
+        }
+
     }
 }
