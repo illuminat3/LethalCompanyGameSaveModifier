@@ -18,7 +18,7 @@ namespace LethalCompanySaveModifier
         private static string LocalLowPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow");
         private static string GameSavePath = LocalLowPath + "\\ZeekerssRBLX\\Lethal Company\\";
         private static string TestFile = GameSavePath + "LCSaveFile1";
-        private static string outputFile = "output.txt";
+        private static string OutputFile = "output.json";
 
         public Form1()
         {
@@ -33,12 +33,12 @@ namespace LethalCompanySaveModifier
         private void DecryptButton_Click(object sender, EventArgs e)
         {
             string decryptedData = Decrypt(password, File.ReadAllBytes(TestFile));
-            File.WriteAllText(outputFile, decryptedData);
+            File.WriteAllText(OutputFile, decryptedData);
         }
 
         private void EncryptButton_Click(object sender, EventArgs e)
         {
-            byte[] encryptedData = Encrypt(password, File.ReadAllText(outputFile));
+            byte[] encryptedData = Encrypt(password, File.ReadAllText(OutputFile));
             File.WriteAllBytes(TestFile, encryptedData);
         }
 
